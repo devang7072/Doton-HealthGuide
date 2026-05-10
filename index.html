@@ -433,7 +433,12 @@
         </div>
       </div>
       <div class="card card-sm">
-        <div style="font-size:15px;font-weight:700;margin-bottom:14px">Upcoming Reminders</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <div style="font-size:15px;font-weight:700;">Upcoming Reminders</div>
+          <button class="btn btn-primary" style="padding: 4px 10px; font-size: 11px; background: #25D366; color: #fff; border: none; cursor: pointer;" onclick="shareMedicineScheduleOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i> Share Schedule
+          </button>
+        </div>
         <div id="med-list" style="display:flex;flex-direction:column;gap:10px;max-height:460px;overflow-y:auto">
           <div style="text-align:center;padding:30px;color:var(--muted);font-size:13px">No reminders yet. Add one!</div>
         </div>

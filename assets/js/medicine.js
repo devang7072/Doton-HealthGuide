@@ -117,3 +117,28 @@ function renderMedAlerts() {
       </button>
     </div>`).join('');
 }
+
+/**
+ * shareMedicineScheduleOnWhatsApp — Generates a WhatsApp share link for today's medicines.
+ */
+window.shareMedicineScheduleOnWhatsApp = function() {
+  if (!medAlerts || medAlerts.length === 0) {
+    alert("You have no active medicine reminders to share.");
+    return;
+  }
+
+  let text = `📋 *Doton Medicine Schedule* 📋\n\n`;
+  
+  medAlerts.forEach((m, index) => {
+    const timeStr = new Date(m.time).toLocaleString();
+    text += `${index + 1}. *${m.name}* (${m.type})\n`;
+    text += `   Time: ${timeStr}\n`;
+    if (m.note) text += `   Note: ${m.note}\n`;
+    text += `\n`;
+  });
+
+  text += `Stay healthy! Track your medicines on Doton: https://doton.netlify.app`;
+  
+  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
+};

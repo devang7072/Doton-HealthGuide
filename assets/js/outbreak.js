@@ -119,14 +119,28 @@ function renderOutbreakLog() {
           ${a.cases} cases · ${a.time} · by ${a.reporter || 'Anonymous'}
         </div>
       </div>
-      <span class="badge" style="
-        background:${colors[a.severity]}20;
-        color:${colors[a.severity]};
-        border:1px solid ${colors[a.severity]}40">
-        ${a.severity.toUpperCase()}
-      </span>
+      <div style="display:flex; gap: 8px; align-items:center;">
+        <button class="btn btn-primary" style="padding: 4px 8px; font-size: 11px; background: #25D366; color: #fff; border: none; cursor: pointer;" onclick="shareOutbreakOnWhatsApp('${a.disease}', '${a.district}', '${a.severity}', '${a.cases}')">
+          <i class="fab fa-whatsapp"></i> Share
+        </button>
+        <span class="badge" style="
+          background:${colors[a.severity]}20;
+          color:${colors[a.severity]};
+          border:1px solid ${colors[a.severity]}40">
+          ${a.severity.toUpperCase()}
+        </span>
+      </div>
     </div>`).join('');
 }
+
+/**
+ * shareOutbreakOnWhatsApp — Generates a WhatsApp share link for an outbreak.
+ */
+window.shareOutbreakOnWhatsApp = function(disease, district, severity, cases) {
+  const text = `🚨 *HEALTH ALERT* 🚨\n\nDisease: *${disease}*\nLocation: *${district}*\nSeverity: *${severity.toUpperCase()}*\nReported Cases: *${cases}*\n\nStay safe and take necessary precautions! Check the full map on Doton: https://doton.netlify.app`;
+  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
+};
 
 /**
  * addCampaignCard — appends an entry to the "Active Campaigns" panel.
