@@ -19,6 +19,15 @@ const HEALTH_SYSTEM = `You are MediChat AI, a knowledgeable and empathetic healt
 7. Never diagnose or prescribe. Never replace professional care.
 8. Be warm, non-judgmental, and supportive.`;
 
+// Get full language name for the prompt
+function getLanguageName() {
+  if (typeof currentLang !== 'undefined') {
+    if (currentLang === 'pa') return 'Punjabi';
+    if (currentLang === 'hi') return 'Hindi';
+  }
+  return 'English';
+}
+
 // ── Connect Puter (Auto-init) ──────────────────────────────────
 function connectGemini() {
   // Puter doesn't need a key, so we just simulate a connection or check status
@@ -43,9 +52,13 @@ async function chatSend() {
 
   addChatMsg('user', text);
   
-  // Prepare chat context (Puter doesn't strictly require full history in the same format,
-  // but we build the prompt to include system instructions)
-  const fullPrompt = `${HEALTH_SYSTEM}\n\nUser Question: ${text}`;
+  // Prepare chat context
+  const langName = getLanguageName();
+  const langInstruction = langName !== 'English' 
+    ? `\n\nCRITICAL INSTRUCTION: The user prefers ${langName}. You MUST respond entirely in ${langName} script/language.` 
+    : '';
+    
+  const fullPrompt = `${HEALTH_SYSTEM}${langInstruction}\n\nUser Question: ${text}`;
 
   const sendBtn = document.getElementById('chat-send');
   sendBtn.disabled = true;

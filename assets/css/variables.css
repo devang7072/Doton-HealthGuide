@@ -36,3 +36,17 @@
   --r2: 20px;
   --r3: 24px;
 }
+
+/* ── Custom Select / Options ── */
+select option { background: var(--bg); color: var(--text); }
+
+/* ── Google Translate Overrides ── */
+.goog-te-banner-frame.skiptranslate { display: none !important; }
+body { top: 0px !important; }
+.goog-logo-link { display: none !important; }
+.goog-te-gadget { color: transparent !important; }
+
+/* ── Custom Language Menu Hover ── */
+.lang-option:hover {
+  background: rgba(79, 70, 229, 0.1);
+}

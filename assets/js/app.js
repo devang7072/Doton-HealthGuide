@@ -162,3 +162,33 @@ function urlBase64ToUint8Array(base64String) {
   }
   return outputArray;
 }
+
+// ── Language Switcher Logic ──────────────────────────────────────────
+let currentLang = 'en';
+
+window.toggleLangMenu = function() {
+  const menu = document.getElementById('lang-menu');
+  if (menu) menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+};
+
+window.changeLanguage = function(langCode, langName) {
+  currentLang = langCode;
+  document.getElementById('current-lang-text').innerText = langName;
+  document.getElementById('lang-menu').style.display = 'none';
+
+  // Trigger Google Translate hidden dropdown
+  const select = document.querySelector('.goog-te-combo');
+  if (select) {
+    select.value = langCode;
+    select.dispatchEvent(new Event('change'));
+  }
+};
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  const switcher = document.querySelector('.lang-switcher');
+  const menu = document.getElementById('lang-menu');
+  if (switcher && menu && !switcher.contains(e.target)) {
+    menu.style.display = 'none';
+  }
+});

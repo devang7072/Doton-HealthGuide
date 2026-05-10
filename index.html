@@ -133,6 +133,18 @@
         <span style="font-size:12px; font-weight:600; color:var(--muted)">Puter.js Initializing…</span>
       </div>
 
+      <!-- Language Switcher -->
+      <div class="lang-switcher" style="position:relative; margin-right: 10px;">
+        <button id="lang-btn" onclick="toggleLangMenu()" style="background:var(--card-bg); border:1px solid var(--border); border-radius:var(--r); padding:8px 12px; color:var(--text); font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px;">
+          <i class="fas fa-language" style="color:var(--indigo)"></i> <span id="current-lang-text">English</span> <i class="fas fa-chevron-down" style="font-size:10px; margin-left:4px; color:var(--muted)"></i>
+        </button>
+        <div id="lang-menu" style="display:none; position:absolute; top:110%; right:0; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--r); padding:8px; box-shadow:0 10px 25px -5px rgba(0,0,0,0.1); z-index:100; min-width:140px;">
+          <div class="lang-option" onclick="changeLanguage('en', 'English')" style="padding:8px 12px; border-radius:6px; cursor:pointer; font-size:13px; font-weight:500; color:var(--text); transition:background 0.2s;">🇬🇧 English</div>
+          <div class="lang-option" onclick="changeLanguage('pa', 'ਪੰਜਾਬੀ (Punjabi)')" style="padding:8px 12px; border-radius:6px; cursor:pointer; font-size:13px; font-weight:500; color:var(--text); transition:background 0.2s;">🇮🇳 ਪੰਜਾਬੀ (Punjabi)</div>
+          <div class="lang-option" onclick="changeLanguage('hi', 'हिंदी (Hindi)')" style="padding:8px 12px; border-radius:6px; cursor:pointer; font-size:13px; font-weight:500; color:var(--text); transition:background 0.2s;">🇮🇳 हिंदी (Hindi)</div>
+        </div>
+      </div>
+
       <!-- Auth: Login button (shown when logged out) -->
       <button id="auth-login-btn"
         onclick="openAuthModal('login')"
@@ -1028,6 +1040,20 @@
 <script src="assets/js/weather.js"></script>
 <script src="assets/js/doctors.js"></script>
 <script src="assets/js/vitals.js"></script>
+
+<!-- Google Translate Hidden Widget -->
+<div id="google_translate_element" style="display:none;"></div>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,pa,hi',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
