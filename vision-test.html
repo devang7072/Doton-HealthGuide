@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://js.puter.com/v2/"></script>
+</head>
+<body>
+  <input type="file" id="f" />
+  <button onclick="test()">Test</button>
+  <pre id="res"></pre>
+  <script>
+    async function test() {
+      const f = document.getElementById('f').files[0];
+      if (!f) return;
+      try {
+        const r1 = await puter.ai.chat(
+            `Analyze this image. What is the text?`,
+            f
+        );
+        document.getElementById('res').innerText += "Test 1 (prompt, file): " + JSON.stringify(r1) + "\n";
+      } catch(e) {
+        document.getElementById('res').innerText += "Test 1 failed: " + e.message + "\n";
+      }
+      
+      try {
+        const r2 = await puter.ai.chat(
+            [`Analyze this image. What is the text?`, f]
+        );
+        document.getElementById('res').innerText += "Test 2 ([prompt, file]): " + JSON.stringify(r2) + "\n";
+      } catch(e) {
+        document.getElementById('res').innerText += "Test 2 failed: " + e.message + "\n";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -165,13 +165,27 @@ window.scanPrescription = async function(event) {
     Do not wrap it in markdown block quotes, just pure JSON.`;
 
     // Puter AI vision call
-    const response = await puter.ai.chat(prompt, file, { model: 'gemini-1.5-flash' });
+    // According to Puter.js docs, multimodal input should be passed as an array
+    const response = await puter.ai.chat(
+      [prompt, file], 
+      { model: 'gemini-1.5-flash' }
+    );
     
-    let jsonStr = response.message.content.trim();
+    let rawText = response.message.content.trim();
+    console.log("Raw AI Vision Response:", rawText);
+
+    let jsonStr = rawText;
     if (jsonStr.startsWith('\`\`\`json')) jsonStr = jsonStr.substring(7, jsonStr.length - 3);
     else if (jsonStr.startsWith('\`\`\`')) jsonStr = jsonStr.substring(3, jsonStr.length - 3);
 
-    const data = JSON.parse(jsonStr);
+    let data;
+    try {
+      data = JSON.parse(jsonStr);
+    } catch (parseError) {
+      console.error("JSON Parse Error:", parseError, "Raw Text:", rawText);
+      alert(`AI tried to read it but didn't return perfect data.\nRaw output: ${rawText}`);
+      return;
+    }
 
     document.getElementById('med-name').value = data.name || '';
     document.getElementById('med-type').value = data.type || 'Medicine';
@@ -189,8 +203,8 @@ window.scanPrescription = async function(event) {
     alert(`✅ Scanned successfully: ${data.name}. Please verify the details before adding.`);
 
   } catch (err) {
-    console.error(err);
-    alert('Failed to scan prescription. Make sure the text is clearly visible.');
+    console.error("Vision Error:", err);
+    alert('Failed to scan prescription: ' + err.message);
   } finally {
     btn.innerHTML = oldText;
     btn.disabled = false;
