@@ -19,6 +19,8 @@
   <script src="https://js.puter.com/v2/"></script>
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- html2pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <!-- ── Stylesheets (order matters) ── -->
   <link rel="stylesheet" href="assets/css/variables.css"/>
@@ -530,9 +532,15 @@
             <label class="form-label">Dosage / Notes (optional)</label>
             <input id="med-note" class="form-input" type="text" placeholder="e.g. 500mg, twice daily"/>
           </div>
-          <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="addMedAlert()">
-            <i class="fas fa-plus"></i> Add Reminder
-          </button>
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <button class="btn btn-primary" style="flex:2;justify-content:center" onclick="addMedAlert()">
+              <i class="fas fa-plus"></i> Add Reminder
+            </button>
+            <button class="btn btn-emerald" style="flex:1;justify-content:center" onclick="document.getElementById('pres-input').click()" title="Scan prescription with AI">
+              <i class="fas fa-camera"></i> Scan
+            </button>
+          </div>
+          <input id="pres-input" type="file" accept="image/*" capture="environment" style="display:none" onchange="scanPrescription(event)"/>
         </div>
       </div>
       <div class="card card-sm">
@@ -671,11 +679,16 @@
   </div><!-- /page-weather -->
 
 
-  <!-- ════════════════ PAGE: HEALTH VITALS ════════════════ -->
+  <!-- ════════════════ PAGE: VITALS ════════════════ -->
   <div class="page" id="page-vitals">
-    <div class="section-head">
-      <h2>📊 Health Vitals Dashboard</h2>
-      <p>Log your vitals and track your progress with interactive charts</p>
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
+      <div class="section-head" style="margin-bottom:0;">
+        <h2>📊 Health Vitals</h2>
+        <p>Log and track your body metrics</p>
+      </div>
+      <button class="btn btn-primary" onclick="downloadVitalsPDF()" title="Download Health Report PDF">
+        <i class="fas fa-file-pdf"></i> Download PDF
+      </button>
     </div>
 
     <div class="grid2" style="gap:20px;align-items:start">

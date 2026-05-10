@@ -205,3 +205,84 @@ function loadHealthChart() {
 function formatVitalType(type) {
   return type.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
+
+/**
+ * downloadVitalsPDF — Generates a PDF report of the user's health logs.
+ */
+window.downloadVitalsPDF = function() {
+  if (vitalsData.length === 0) {
+    alert("No vitals data available to download.");
+    return;
+  }
+
+  const btn = event.currentTarget;
+  const oldHTML = btn.innerHTML;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+  btn.disabled = true;
+
+  // 1. Create a temporary container for the PDF content
+  const printDiv = document.createElement('div');
+  printDiv.style.padding = '40px';
+  printDiv.style.fontFamily = 'Arial, sans-serif';
+  printDiv.style.color = '#333';
+  printDiv.style.background = '#fff';
+
+  // Sort data descending
+  const sorted = [...vitalsData].sort((a, b) => new Date(b.loggedAt) - new Date(a.loggedAt));
+
+  // Generate Table Rows
+  const rows = sorted.map(log => `
+    <tr style="border-bottom: 1px solid #ddd;">
+      <td style="padding: 12px 8px;">${new Date(log.loggedAt).toLocaleDateString()}</td>
+      <td style="padding: 12px 8px; font-weight: bold;">${formatVitalType(log.metricType)}</td>
+      <td style="padding: 12px 8px; color: #4f46e5; font-weight: bold;">${log.value} ${log.unit}</td>
+      <td style="padding: 12px 8px; font-style: italic; color: #666;">${log.notes || '-'}</td>
+    </tr>
+  `).join('');
+
+  // Build the HTML structure
+  printDiv.innerHTML = `
+    <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #4f46e5; padding-bottom: 20px;">
+      <h1 style="color: #4f46e5; margin: 0 0 10px 0;">Doton Health Report</h1>
+      <p style="margin: 0; color: #666;">Generated on: ${new Date().toLocaleDateString()}</p>
+    </div>
+    
+    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+      <thead>
+        <tr style="background: #f8fafc; border-bottom: 2px solid #ddd;">
+          <th style="padding: 12px 8px;">Date</th>
+          <th style="padding: 12px 8px;">Metric</th>
+          <th style="padding: 12px 8px;">Reading</th>
+          <th style="padding: 12px 8px;">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+    
+    <div style="margin-top: 40px; font-size: 12px; color: #999; text-align: center;">
+      <p>This report was generated automatically by Doton. Please consult a doctor for medical advice.</p>
+    </div>
+  `;
+
+  // 2. Configure html2pdf
+  const opt = {
+    margin:       0.5,
+    filename:     'Doton_Health_Report.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+
+  // 3. Generate PDF
+  html2pdf().set(opt).from(printDiv).save().then(() => {
+    btn.innerHTML = oldHTML;
+    btn.disabled = false;
+  }).catch(err => {
+    console.error("PDF Error:", err);
+    alert("Failed to generate PDF.");
+    btn.innerHTML = oldHTML;
+    btn.disabled = false;
+  });
+};

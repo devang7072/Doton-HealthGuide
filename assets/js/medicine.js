@@ -142,3 +142,58 @@ window.shareMedicineScheduleOnWhatsApp = function() {
   const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
   window.open(url, '_blank');
 };
+
+/**
+ * scanPrescription — Reads a medicine box or prescription photo using AI.
+ */
+window.scanPrescription = async function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const btn = event.target.previousElementSibling.children[1];
+  const oldText = btn.innerHTML;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
+  btn.disabled = true;
+
+  try {
+    const prompt = `Analyze this medical prescription or medicine package. Extract the main medicine/vaccine. Return ONLY a valid JSON object in this exact format:
+    {
+      "name": "Medicine Name (e.g. Paracetamol)",
+      "type": "Medicine" or "Vaccination",
+      "note": "Dosage instructions (e.g. 500mg twice a day)"
+    }
+    Do not wrap it in markdown block quotes, just pure JSON.`;
+
+    // Puter AI vision call
+    const response = await puter.ai.chat(prompt, file, { model: 'gemini-1.5-flash' });
+    
+    let jsonStr = response.message.content.trim();
+    if (jsonStr.startsWith('\`\`\`json')) jsonStr = jsonStr.substring(7, jsonStr.length - 3);
+    else if (jsonStr.startsWith('\`\`\`')) jsonStr = jsonStr.substring(3, jsonStr.length - 3);
+
+    const data = JSON.parse(jsonStr);
+
+    document.getElementById('med-name').value = data.name || '';
+    document.getElementById('med-type').value = data.type || 'Medicine';
+    document.getElementById('med-note').value = data.note || '';
+
+    // Default to tomorrow 8 AM
+    const tmrw = new Date();
+    tmrw.setDate(tmrw.getDate() + 1);
+    tmrw.setHours(8, 0, 0, 0);
+    // Format for datetime-local: YYYY-MM-DDThh:mm
+    const pad = (n) => n.toString().padStart(2, '0');
+    const dtStr = `${tmrw.getFullYear()}-${pad(tmrw.getMonth()+1)}-${pad(tmrw.getDate())}T${pad(tmrw.getHours())}:${pad(tmrw.getMinutes())}`;
+    document.getElementById('med-time').value = dtStr;
+
+    alert(`✅ Scanned successfully: ${data.name}. Please verify the details before adding.`);
+
+  } catch (err) {
+    console.error(err);
+    alert('Failed to scan prescription. Make sure the text is clearly visible.');
+  } finally {
+    btn.innerHTML = oldText;
+    btn.disabled = false;
+    event.target.value = ''; // reset file input
+  }
+};
