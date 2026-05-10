@@ -200,6 +200,17 @@
       <p class="hero-subtitle">AI-powered health guidance, outbreak tracking, medicine reminders &amp; more — all in one place.</p>
     </div>
 
+    <!-- 🧠 Smart Hub Daily Summary -->
+    <div id="smart-hub" style="margin-bottom:24px; background:linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(79, 70, 229, 0.02) 100%); border:1px solid rgba(79, 70, 229, 0.2); border-radius:var(--r2); padding:16px 20px; display:flex; gap:16px; align-items:flex-start;">
+      <div style="background:var(--indigo); color:white; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; box-shadow:0 4px 12px rgba(79, 70, 229, 0.3);">
+        <i class="fas fa-sparkles"></i>
+      </div>
+      <div>
+        <h3 id="smart-hub-greeting" style="font-size:16px; font-weight:700; margin:0 0 4px 0; color:var(--text);">Good Morning!</h3>
+        <p id="smart-hub-text" style="font-size:13px; color:var(--text); opacity:0.85; margin:0; line-height:1.5;">Loading your personalized health summary...</p>
+      </div>
+    </div>
+
     <!-- Stats row -->
     <div class="grid4" style="margin-bottom:24px">
       <div class="stat-card"><div class="stat-num" style="color:var(--emerald)">10+</div><div class="stat-label">Health Tools</div></div>
@@ -416,8 +427,11 @@
       </div>
 
       <!-- Input row -->
-      <div class="chat-input-row">
-        <textarea id="chat-ta" placeholder="Ask a health question…" rows="1"></textarea>
+      <div class="chat-input-row" style="display: flex; gap: 8px; align-items: flex-end;">
+        <button class="send-btn" id="chat-mic-btn" onclick="startVoiceRecognition()" style="background:var(--card-bg); color:var(--text); border:1px solid var(--border);" title="Speak your question">
+          <i class="fas fa-microphone"></i>
+        </button>
+        <textarea id="chat-ta" placeholder="Ask a health question…" rows="1" style="flex: 1;"></textarea>
         <button class="send-btn" id="chat-send" onclick="chatSend()">
           <i class="fas fa-paper-plane"></i>
         </button>

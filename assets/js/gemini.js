@@ -201,3 +201,54 @@ document.addEventListener('DOMContentLoaded', () => {
     this.style.height = Math.min(this.scrollHeight, 140) + 'px';
   });
 });
+
+// ── Voice Input (Speech-to-Text) ────────────────────────────────
+window.startVoiceRecognition = function() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert("Sorry, your browser doesn't support Voice Input. Try Chrome or Edge.");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  
+  // Set language based on active language
+  const langName = getLanguageName();
+  if (langName === 'Punjabi') recognition.lang = 'pa-IN';
+  else if (langName === 'Hindi') recognition.lang = 'hi-IN';
+  else recognition.lang = 'en-US';
+
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  const micBtn = document.getElementById('chat-mic-btn');
+  const originalColor = micBtn.style.color;
+  const originalHTML = micBtn.innerHTML;
+  
+  micBtn.style.color = 'var(--rose)';
+  micBtn.innerHTML = '<i class="fas fa-microphone fa-beat"></i>';
+
+  recognition.start();
+
+  recognition.onresult = function(event) {
+    const speechResult = event.results[0][0].transcript;
+    const ta = document.getElementById('chat-ta');
+    ta.value = speechResult;
+    // Auto resize
+    ta.style.height = '48px';
+    ta.style.height = Math.min(ta.scrollHeight, 140) + 'px';
+  };
+
+  recognition.onspeechend = function() {
+    recognition.stop();
+    micBtn.style.color = originalColor;
+    micBtn.innerHTML = originalHTML;
+  };
+
+  recognition.onerror = function(event) {
+    console.error("Speech Recognition Error:", event.error);
+    alert("Voice input failed: " + event.error);
+    micBtn.style.color = originalColor;
+    micBtn.innerHTML = originalHTML;
+  };
+};

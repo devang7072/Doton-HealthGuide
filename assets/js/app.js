@@ -192,3 +192,53 @@ document.addEventListener('click', (e) => {
     menu.style.display = 'none';
   }
 });
+
+// ── Smart Hub Logic ──────────────────────────────────────────────────
+window.generateSmartSummary = async function() {
+  const greetingEl = document.getElementById('smart-hub-greeting');
+  const textEl = document.getElementById('smart-hub-text');
+  if (!greetingEl || !textEl) return;
+
+  const hour = new Date().getHours();
+  let greeting = 'Good Evening';
+  if (hour < 12) greeting = 'Good Morning';
+  else if (hour < 17) greeting = 'Good Afternoon';
+
+  // Get User Name
+  const userStr = localStorage.getItem('doton_user');
+  let name = '';
+  if (userStr) {
+    try { name = JSON.parse(userStr).name.split(' ')[0]; } catch(e){}
+  }
+  greetingEl.innerText = name ? `${greeting}, ${name}!` : `${greeting}!`;
+
+  // Aggregate Data
+  let medsCount = 0;
+  if (typeof window.medicines !== 'undefined') {
+    const todayStr = new Date().toLocaleDateString();
+    medsCount = window.medicines.filter(m => new Date(m.time).toLocaleDateString() === todayStr).length;
+  }
+
+  let tempStr = 'Unknown weather';
+  if (typeof window.weatherData !== 'undefined' && window.weatherData?.main?.temp) {
+    tempStr = `${Math.round(window.weatherData.main.temp)}°C`;
+  }
+
+  let alertsCount = 0;
+  if (typeof window.activeAlerts !== 'undefined') {
+    alertsCount = window.activeAlerts.length;
+  }
+
+  let text = `You have ${medsCount > 0 ? `**${medsCount} medicines** scheduled` : 'no medicines scheduled'} for today. `;
+  text += `It's currently **${tempStr}** outside. `;
+  text += alertsCount > 0 
+    ? `⚠️ There are **${alertsCount} health alerts** in your area.` 
+    : `No new disease outbreaks reported in your area.`;
+
+  // Convert **bold** to HTML
+  textEl.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+};
+
+// Auto-run smart summary on load and every minute to keep it fresh
+setTimeout(generateSmartSummary, 2000); // 2 second delay to let weather/medicine load
+setInterval(generateSmartSummary, 60000);
