@@ -2,7 +2,10 @@
  * index.js — Doton Express Server Entry Point
  * Runs on PORT 5000 by default
  */
-require('dotenv').config({ path: '../.env' });
+// Load env vars from .env file (for local dev)
+require('dotenv').config(); 
+// Also try loading from one level up just in case (legacy)
+require('dotenv').config({ path: '../.env' }); 
 
 const express        = require('express');
 const cors           = require('cors');
