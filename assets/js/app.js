@@ -41,7 +41,7 @@ function showPage(id) {
   });
 
   // Update mobile nav active state
-  document.querySelectorAll('.mob-item').forEach(n => {
+  document.querySelectorAll('.mob-nav-item').forEach(n => {
     const oc = n.getAttribute('onclick') || '';
     n.classList.toggle('active', oc.includes(`'${id}'`));
   });
