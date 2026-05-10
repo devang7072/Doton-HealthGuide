@@ -15,6 +15,7 @@ const authRoutes      = require('./routes/authRoutes');
 const reminderRoutes  = require('./routes/reminderRoutes');
 const healthLogRoutes = require('./routes/healthLogRoutes');
 const outbreakRoutes  = require('./routes/outbreakRoutes');
+const newsRoutes      = require('./routes/newsRoutes');
 const { initReminderCron } = require('./cron/reminderCron');
 
 // ── Connect to MongoDB ───────────────────────────────────────────
@@ -52,6 +53,7 @@ app.use('/api/auth',        authRoutes);
 app.use('/api/reminders',   reminderRoutes);
 app.use('/api/health-log',  healthLogRoutes);
 app.use('/api/outbreaks',   outbreakRoutes);
+app.use('/api/news',        newsRoutes);
 
 // ── Health check ─────────────────────────────────────────────────
 app.get('/api/ping', (req, res) => {

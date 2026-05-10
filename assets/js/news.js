@@ -18,23 +18,20 @@ async function loadNews() {
   grid.innerHTML = '';
 
   try {
-    const RSS = encodeURIComponent(
-      'https://news.google.com/rss/search?q=Punjab+health+medical&hl=en-IN&gl=IN&ceid=IN:en'
-    );
-    const res  = await fetch('https://api.allorigins.win/get?url=' + RSS);
-    const data = await res.json();
-
-    const parser = new DOMParser();
-    const xml    = parser.parseFromString(data.contents, 'application/xml');
-    const items  = [...xml.querySelectorAll('item')].slice(0, 9);
+    // Fetch from our own backend proxy
+    const data = await api.get('/news');
+    
+    // Google RSS JSON structure: data.rss.channel.item
+    const items = data.rss.channel.item.slice(0, 9);
 
     loader.style.display = 'none';
     newsLoaded = true;
 
     items.forEach((item, i) => {
-      const title = item.querySelector('title')?.textContent   || 'No title';
-      const link  = item.querySelector('link')?.textContent    || '#';
-      const pub   = new Date(item.querySelector('pubDate')?.textContent)
+      const title = item.title   || 'No title';
+      const link  = item.link    || '#';
+      const pubDateText = item.pubDate;
+      const pub   = new Date(pubDateText)
                       .toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
       const card = document.createElement('div');
@@ -46,7 +43,7 @@ async function loadNews() {
             <i class="far fa-clock"></i> ${pub}
           </span>
         </div>
-        <h3 style="font-size:15px;font-weight:700;line-height:1.4;margin-bottom:12px;color:var(--text)">
+        <h3 style="font-size:14px;font-weight:700;line-height:1.4;margin-bottom:12px;color:var(--text)">
           ${title}
         </h3>
         <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:10px;margin-top:auto">
