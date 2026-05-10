@@ -165,13 +165,24 @@ window.scanPrescription = async function(event) {
     Do not wrap it in markdown block quotes, just pure JSON.`;
 
     // Puter AI vision call
-    // According to Puter.js docs, multimodal input should be passed as an array
     const response = await puter.ai.chat(
       [prompt, file], 
       { model: 'gemini-1.5-flash' }
     );
     
-    let rawText = response.message.content.trim();
+    // Puter API might return a string directly or an object depending on the version
+    let rawText = '';
+    if (typeof response === 'string') {
+      rawText = response;
+    } else if (response && response.message && response.message.content) {
+      rawText = response.message.content;
+    } else if (response && response.text) {
+      rawText = response.text;
+    } else {
+      rawText = JSON.stringify(response);
+    }
+    
+    rawText = rawText.trim();
     console.log("Raw AI Vision Response:", rawText);
 
     let jsonStr = rawText;
