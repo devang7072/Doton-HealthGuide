@@ -3,7 +3,7 @@
  * All requests go through here so JWT token is automatically attached.
  */
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://doton-healthguide.onrender.com/api';
 
 /**
  * apiFetch — wraps fetch with auth headers and JSON parsing.
