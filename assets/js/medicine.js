@@ -156,49 +156,61 @@ window.scanPrescription = async function(event) {
   btn.disabled = true;
 
   try {
-    const prompt = `Analyze this medical prescription or medicine package. Extract the main medicine/vaccine. Return ONLY a valid JSON object in this exact format:
-    {
-      "name": "Medicine Name (e.g. Paracetamol)",
-      "type": "Medicine" or "Vaccination",
-      "note": "Dosage instructions (e.g. 500mg twice a day)"
-    }
-    Do not wrap it in markdown block quotes, just pure JSON.`;
+    // Convert file to DataURL just in case Puter prefers base64 over File objects
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    await new Promise(res => reader.onload = res);
+    const base64Image = reader.result;
 
-    // Puter AI vision call
+    const prompt = `You are a medical AI. Analyze this medical prescription or medicine package. Extract the main medicine/vaccine. Return ONLY a valid JSON object in this exact format:
+    {
+      "name": "Extracted Medicine Name",
+      "type": "Medicine",
+      "note": "Dosage instructions if any"
+    }
+    If you cannot read it or it is not a medicine, return {"error": "Could not read the medicine name"}.`;
+
     const response = await puter.ai.chat(
-      [prompt, file], 
+      [prompt, base64Image], 
       { model: 'gemini-1.5-flash' }
     );
     
-    // Puter API might return a string directly or an object depending on the version
     let rawText = '';
-    if (typeof response === 'string') {
-      rawText = response;
-    } else if (response && response.message && response.message.content) {
-      rawText = response.message.content;
-    } else if (response && response.text) {
-      rawText = response.text;
-    } else {
-      rawText = JSON.stringify(response);
-    }
+    if (typeof response === 'string') rawText = response;
+    else if (response?.message?.content) rawText = response.message.content;
+    else if (response?.text) rawText = response.text;
+    else rawText = JSON.stringify(response);
     
     rawText = rawText.trim();
     console.log("Raw AI Vision Response:", rawText);
 
-    let jsonStr = rawText;
-    if (jsonStr.startsWith('\`\`\`json')) jsonStr = jsonStr.substring(7, jsonStr.length - 3);
-    else if (jsonStr.startsWith('\`\`\`')) jsonStr = jsonStr.substring(3, jsonStr.length - 3);
-
-    let data;
-    try {
-      data = JSON.parse(jsonStr);
-    } catch (parseError) {
-      console.error("JSON Parse Error:", parseError, "Raw Text:", rawText);
-      alert(`AI tried to read it but didn't return perfect data.\nRaw output: ${rawText}`);
+    // Try to extract JSON using Regex (foolproof against markdown padding)
+    const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      alert(`AI couldn't understand the image.\nWhat it said: ${rawText}`);
       return;
     }
 
-    document.getElementById('med-name').value = data.name || '';
+    let data;
+    try {
+      data = JSON.parse(jsonMatch[0]);
+    } catch (parseError) {
+      alert(`AI tried to read it but failed formatting.\nRaw output: ${rawText}`);
+      return;
+    }
+
+    if (data.error) {
+      alert("AI says: " + data.error);
+      return;
+    }
+
+    const medName = data.name || data.MedicineName || data.medicine || '';
+    if (!medName) {
+      alert(`AI scanned the image but couldn't find a medicine name.\nRaw output: ${rawText}`);
+      return;
+    }
+
+    document.getElementById('med-name').value = medName;
     document.getElementById('med-type').value = data.type || 'Medicine';
     document.getElementById('med-note').value = data.note || '';
 
@@ -206,12 +218,11 @@ window.scanPrescription = async function(event) {
     const tmrw = new Date();
     tmrw.setDate(tmrw.getDate() + 1);
     tmrw.setHours(8, 0, 0, 0);
-    // Format for datetime-local: YYYY-MM-DDThh:mm
     const pad = (n) => n.toString().padStart(2, '0');
     const dtStr = `${tmrw.getFullYear()}-${pad(tmrw.getMonth()+1)}-${pad(tmrw.getDate())}T${pad(tmrw.getHours())}:${pad(tmrw.getMinutes())}`;
     document.getElementById('med-time').value = dtStr;
 
-    alert(`✅ Scanned successfully: ${data.name}. Please verify the details before adding.`);
+    alert(`✅ Scanned successfully: ${medName}. Please verify the details before adding.`);
 
   } catch (err) {
     console.error("Vision Error:", err);
