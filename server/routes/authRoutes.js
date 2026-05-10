@@ -111,4 +111,24 @@ router.put('/profile', protect, async (req, res) => {
   }
 });
 
+// ── POST /api/auth/subscribe ─────────────────────────────────────
+router.post('/subscribe', protect, async (req, res) => {
+  try {
+    const subscription = req.body;
+    if (!subscription) {
+      return res.status(400).json({ message: 'Subscription is required' });
+    }
+
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    user.pushSubscription = subscription;
+    await user.save();
+
+    res.status(201).json({ message: 'Push subscription saved successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

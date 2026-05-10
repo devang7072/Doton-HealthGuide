@@ -91,3 +91,51 @@ self.addEventListener('fetch', event => {
       })
   );
 });
+
+// ── Push Event ───────────────────────────────────────────────────
+self.addEventListener('push', event => {
+  let data = { title: 'Doton Health', body: 'New health update for you!' };
+  
+  if (event.data) {
+    try {
+      data = event.data.json();
+    } catch (e) {
+      data.body = event.data.text();
+    }
+  }
+
+  const options = {
+    body: data.body,
+    icon: data.icon || '/assets/icons/icon-192x192.png',
+    badge: '/assets/icons/icon-192x192.png', // Small icon for notification bar
+    vibrate: [100, 50, 100],
+    data: data.data || { url: '/' }
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
+  );
+});
+
+// ── Notification Click Event ─────────────────────────────────────
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  
+  const urlToOpen = event.notification.data.url || '/';
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
+      // Check if there is already a window open with this URL
+      for (let i = 0; i < windowClients.length; i++) {
+        const client = windowClients[i];
+        if (client.url.includes(urlToOpen) && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // If not, open a new window
+      if (clients.openWindow) {
+        return clients.openWindow(urlToOpen);
+      }
+    })
+  );
+});

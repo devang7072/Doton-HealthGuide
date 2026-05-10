@@ -105,7 +105,59 @@ document.addEventListener('DOMContentLoaded', () => {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('ServiceWorker registered:', reg.scope))
+      .then(reg => {
+        console.log('ServiceWorker registered:', reg.scope);
+        // Initialize Push Notifications if logged in
+        if (localStorage.getItem('doton_token')) {
+          initPushNotifications(reg);
+        }
+      })
       .catch(err => console.log('ServiceWorker registration failed:', err));
   });
+}
+
+/**
+ * initPushNotifications — Requests permission and subscribes to Push API
+ */
+async function initPushNotifications(registration) {
+  try {
+    const permission = await Notification.requestPermission();
+    if (permission !== 'granted') {
+      console.log('Push permission denied');
+      return;
+    }
+
+    // Subscribe to push
+    const subscribeOptions = {
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array('BAEUH0NxE9MOc7Ske_0hA2wMc5agCDGM8qsDwfjdgU0_wUVANAYKo9hJ96htUHjf7NjY4PeQ-OucE_ZGarNI7ms')
+    };
+
+    const subscription = await registration.pushManager.subscribe(subscribeOptions);
+    console.log('User is subscribed:', subscription);
+
+    // Send subscription to backend
+    await apiFetch('/auth/subscribe', {
+      method: 'POST',
+      body: JSON.stringify(subscription)
+    });
+    
+    console.log('Subscription saved to backend');
+  } catch (err) {
+    console.error('Failed to subscribe the user: ', err);
+  }
+}
+
+/**
+ * urlBase64ToUint8Array — Helper for VAPID key conversion
+ */
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
 }

@@ -15,9 +15,13 @@ const authRoutes      = require('./routes/authRoutes');
 const reminderRoutes  = require('./routes/reminderRoutes');
 const healthLogRoutes = require('./routes/healthLogRoutes');
 const outbreakRoutes  = require('./routes/outbreakRoutes');
+const { initReminderCron } = require('./cron/reminderCron');
 
 // ── Connect to MongoDB ───────────────────────────────────────────
 connectDB();
+
+// ── Init Cron Jobs ───────────────────────────────────────────────
+initReminderCron();
 
 const app = express();
 

@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema(
       district  : { type: String, default: 'Ludhiana' },
       conditions: { type: [String], default: [] }, // e.g. ['diabetes', 'hypertension']
     },
+    pushSubscription: {
+      type   : Object,
+      default: null,
+    },
   },
   { timestamps: true }
 );
