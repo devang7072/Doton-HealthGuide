@@ -17,6 +17,7 @@ const PAGE_TITLES = {
   doctors   : '👨‍⚕️ Doctors',
   emergency : '🚨 Emergency',
   vitals    : '📊 Health Vitals',
+  tools     : '🛠️ Health Toolbox',
 };
 
 let currentPage = 'dashboard';

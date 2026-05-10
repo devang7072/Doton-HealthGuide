@@ -94,6 +94,51 @@
     display: none; /* Hide API status on mobile to save space */
   }
 
+  .mobile-profile-icon {
+    display: flex !important;
+  }
+
+  /* Tools Hub Card Styles */
+  .tool-hub-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 10px;
+    gap: 12px;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r2);
+  }
+
+  .tool-hub-card:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .tool-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .tool-info h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+    color: var(--text);
+  }
+
+  .tool-info p {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
   /* Fix for medicine tracker cards */
   .alert-item {
     padding: 12px;

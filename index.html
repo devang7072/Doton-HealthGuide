@@ -107,9 +107,9 @@
     <i class="fas fa-exclamation-triangle"></i>
     <span>Alerts</span>
   </a>
-  <a class="mob-nav-item" href="#" onclick="showPage('vitals')">
-    <i class="fas fa-chart-line"></i>
-    <span>Vitals</span>
+  <a class="mob-nav-item" href="#" onclick="showPage('tools')">
+    <i class="fas fa-th-large"></i>
+    <span>Tools</span>
   </a>
   <a class="mob-nav-item danger" href="#" onclick="showPage('emergency')">
     <i class="fas fa-phone-alt"></i>
@@ -150,6 +150,14 @@
           <i class="fas fa-sign-out-alt"></i> Logout
         </button>
       </div>
+      
+      <!-- Mobile Profile Icon -->
+      <div class="mobile-profile-icon" onclick="showPage('vitals')" style="cursor:pointer; display:none;">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--card-bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--indigo);font-size:16px;">
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -284,6 +292,78 @@
       </div>
     </div>
   </div><!-- /page-dashboard -->
+
+
+  <!-- ════════════════ PAGE: TOOLS HUB (MOBILE) ════════════════ -->
+  <div class="page" id="page-tools">
+    <div class="section-head">
+      <h2>🛠️ Health Toolbox</h2>
+      <p>All your health tools in one place</p>
+    </div>
+    
+    <div class="grid2" id="tools-hub-grid" style="gap:14px;">
+      <!-- Row 1 -->
+      <div class="card tool-hub-card" onclick="showPage('alert')">
+        <div class="tool-icon" style="background:#f43f5e20;color:var(--rose)"><i class="fas fa-pills"></i></div>
+        <div class="tool-info">
+          <h3>Medicine Tracker</h3>
+          <p>Never miss a dose</p>
+        </div>
+      </div>
+      <div class="card tool-hub-card" onclick="showPage('news')">
+        <div class="tool-icon" style="background:#3b82f620;color:var(--blue)"><i class="fas fa-newspaper"></i></div>
+        <div class="tool-info">
+          <h3>Health News</h3>
+          <p>Latest medical updates</p>
+        </div>
+      </div>
+      <!-- Row 2 -->
+      <div class="card tool-hub-card" onclick="showPage('myth')">
+        <div class="tool-icon" style="background:#fb923c20;color:#fb923c"><i class="fas fa-lightbulb"></i></div>
+        <div class="tool-info">
+          <h3>Myth Buster</h3>
+          <p>Fact-check health claims</p>
+        </div>
+      </div>
+      <div class="card tool-hub-card" onclick="showPage('vitals')">
+        <div class="tool-icon" style="background:#10b98120;color:var(--emerald)"><i class="fas fa-chart-line"></i></div>
+        <div class="tool-info">
+          <h3>Health Vitals</h3>
+          <p>Log & track metrics</p>
+        </div>
+      </div>
+      <!-- Row 3 -->
+      <div class="card tool-hub-card" onclick="showPage('weather')">
+        <div class="tool-icon" style="background:#8b5cf620;color:var(--purple)"><i class="fas fa-cloud-sun"></i></div>
+        <div class="tool-info">
+          <h3>WeatherWise</h3>
+          <p>Local climate health</p>
+        </div>
+      </div>
+      <div class="card tool-hub-card" onclick="showPage('quiz')">
+        <div class="tool-icon" style="background:#06b6d420;color:var(--cyan)"><i class="fas fa-vial"></i></div>
+        <div class="tool-info">
+          <h3>Health Quiz</h3>
+          <p>Test your knowledge</p>
+        </div>
+      </div>
+      <!-- Row 4 -->
+      <div class="card tool-hub-card" onclick="showPage('hospitals')">
+        <div class="tool-icon" style="background:#6366f120;color:var(--indigo)"><i class="fas fa-hospital"></i></div>
+        <div class="tool-info">
+          <h3>Hospitals</h3>
+          <p>Find nearby facilities</p>
+        </div>
+      </div>
+      <div class="card tool-hub-card" onclick="showPage('doctors')">
+        <div class="tool-icon" style="background:#ec489920;color:#ec4899"><i class="fas fa-user-md"></i></div>
+        <div class="tool-info">
+          <h3>Doctors</h3>
+          <p>Expert consultants</p>
+        </div>
+      </div>
+    </div>
+  </div><!-- /page-tools -->
 
 
   <!-- ════════════════ PAGE: AI CHAT ════════════════ -->
