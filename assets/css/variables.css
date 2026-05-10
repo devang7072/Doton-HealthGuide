@@ -1,0 +1,38 @@
+/* ─────────────────────────────────────────────────
+   doton — Design Tokens (CSS Custom Properties)
+───────────────────────────────────────────────── */
+:root {
+  /* Core palette */
+  --navy:   #050a18;
+  --navy2:  #0a1628;
+  --navy3:  #0f1f38;
+  --navy4:  #162540;
+
+  /* Accent colours */
+  --indigo:  #4f46e5;
+  --purple:  #9333ea;
+  --emerald: #10b981;
+  --cyan:    #06b6d4;
+  --rose:    #f43f5e;
+  --amber:   #f59e0b;
+  --blue:    #3b82f6;
+  --pink:    #ec4899;
+
+  /* Glassmorphism surfaces */
+  --glass:   rgba(255, 255, 255, 0.03);
+  --glass2:  rgba(255, 255, 255, 0.06);
+
+  /* Borders */
+  --border:  rgba(255, 255, 255, 0.07);
+  --border2: rgba(255, 255, 255, 0.12);
+
+  /* Typography */
+  --text:  #f1f5f9;
+  --muted: #94a3b8;
+  --faint: rgba(241, 245, 249, 0.3);
+
+  /* Border radii */
+  --r:  16px;
+  --r2: 20px;
+  --r3: 24px;
+}

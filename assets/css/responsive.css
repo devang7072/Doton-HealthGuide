@@ -1,0 +1,25 @@
+/* ─────────────────────────────────────────────────
+   doton — Responsive / Media Queries
+───────────────────────────────────────────────── */
+
+/* ── Tablet: collapse 3-col / 4-col grids ── */
+@media (max-width: 1000px) {
+  .grid3 { grid-template-columns: repeat(2, 1fr); }
+  .grid4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Mobile: hide sidebar, show bottom nav ── */
+@media (max-width: 768px) {
+  #sidebar       { display: none; }
+  .mobile-nav    { display: flex; }
+  #main          { padding-bottom: 72px; }
+  .page          { padding: 18px; }
+
+  .grid2,
+  .grid3,
+  .grid4         { grid-template-columns: 1fr; }
+
+  .chat-shell    { height: calc(100vh - 240px); }
+  .topbar        { padding: 12px 18px; }
+  .api-badge input { width: 140px; }
+}

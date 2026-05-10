@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+dist/
+
+# Environment Variables
+.env
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# PWA icons (can be recreated)
+assets/icons/

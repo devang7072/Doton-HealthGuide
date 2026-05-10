@@ -1,0 +1,231 @@
+/* ─────────────────────────────────────────────────
+   doton — UI Components
+   Cards · Badges · Buttons · Forms · Grids
+───────────────────────────────────────────────── */
+
+/* ── Page transitions ── */
+.page {
+  display: none;
+  padding: 28px;
+  animation: pageIn .3s ease;
+}
+.page.active { display: block; }
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Glass Card ── */
+.card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r3);
+  padding: 24px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.card:hover     { border-color: var(--border2); }
+.card-sm        { border-radius: var(--r2); padding: 20px; }
+
+/* ── Section Heading ── */
+.section-head    { margin-bottom: 20px; }
+.section-head h2 { font-size: 22px; font-weight: 700; }
+.section-head p  { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+/* ── Grid Utilities ── */
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+/* ── Stat Card ── */
+.stat-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px;
+  text-align: center;
+}
+.stat-num   { font-size: 30px; font-weight: 800; margin-bottom: 4px; }
+.stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--muted);
+}
+
+/* ── Pill Badges ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+.badge-green  { background: rgba(16,185,129,.15);  color: #34d399; border: 1px solid rgba(16,185,129,.25); }
+.badge-red    { background: rgba(239,68,68,.15);   color: #f87171; border: 1px solid rgba(239,68,68,.25); }
+.badge-amber  { background: rgba(245,158,11,.15);  color: #fbbf24; border: 1px solid rgba(245,158,11,.25); }
+.badge-blue   { background: rgba(59,130,246,.15);  color: #60a5fa; border: 1px solid rgba(59,130,246,.25); }
+.badge-purple { background: rgba(147,51,234,.15);  color: #c084fc; border: 1px solid rgba(147,51,234,.25); }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: var(--r);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  border: none;
+}
+.btn-primary       { background: linear-gradient(135deg, var(--indigo), var(--purple)); color: #fff; }
+.btn-primary:hover { opacity: .9; transform: translateY(-1px); }
+.btn-emerald       { background: linear-gradient(135deg, #059669, var(--emerald)); color: #fff; }
+.btn-red           { background: linear-gradient(135deg, #dc2626, var(--rose)); color: #fff; }
+.btn-ghost         { background: var(--glass); border: 1px solid var(--border); color: var(--text); }
+.btn-ghost:hover   { background: var(--glass2); border-color: var(--border2); }
+
+/* ── Form Elements ── */
+.form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.form-input {
+  width: 100%;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border .2s;
+}
+.form-input:focus              { border-color: var(--indigo); }
+.form-input::placeholder       { color: var(--faint); }
+select.form-input option       { background: var(--navy3); color: var(--text); }
+
+/* ── Doctor Card ── */
+.doc-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  transition: all .2s;
+}
+.doc-card:hover    { background: var(--glass2); border-color: var(--border2); transform: translateY(-2px); }
+.doc-av            { width: 64px; height: 64px; border-radius: 16px; overflow: hidden; border: 2px solid rgba(79,70,229,.3); flex-shrink: 0; }
+.doc-av img        { width: 100%; height: 100%; }
+.rating            { display: flex; gap: 2px; font-size: 11px; }
+.star-on           { color: #fbbf24; }
+.star-off          { color: #374151; }
+
+/* ── Alert Item (Medicine Tracker) ── */
+.alert-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 18px;
+}
+.alert-item:hover { border-color: var(--border2); }
+
+/* ── News Card ── */
+.news-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px;
+  cursor: pointer;
+  transition: all .25s;
+  opacity: 0;
+  transform: translateY(16px);
+}
+.news-card.show  { opacity: 1; transform: translateY(0); transition: all .5s ease; }
+.news-card:hover { background: var(--glass2); border-color: rgba(16,185,129,.3); transform: translateY(-4px); }
+
+/* ── Emergency buttons ── */
+.emerg-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px;
+  background: rgba(239,68,68,.1);
+  border: 1px solid rgba(239,68,68,.3);
+  border-radius: var(--r2);
+  cursor: pointer;
+  transition: all .2s;
+  text-decoration: none;
+  color: var(--text);
+}
+.emerg-btn:hover   { background: rgba(239,68,68,.2); }
+.do-card-e         { border-left: 4px solid var(--emerald); background: rgba(16,185,129,.06); }
+.dont-card         { border-left: 4px solid var(--rose);    background: rgba(244,63,94,.06); }
+
+/* ── Helpline block ── */
+.helpline         { text-align: center; padding: 20px; background: var(--glass); border: 1px solid var(--border); border-radius: var(--r2); }
+.helpline-num     { font-size: 26px; font-weight: 800; margin: 6px 0; }
+.helpline-label   { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+
+/* ── Tip bar ── */
+.tip-bar {
+  background: linear-gradient(135deg, rgba(79,70,229,.15), rgba(147,51,234,.15));
+  border: 1px solid rgba(79,70,229,.25);
+  border-radius: var(--r2);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.tip-bar:hover { background: linear-gradient(135deg, rgba(79,70,229,.25), rgba(147,51,234,.25)); }
+
+/* ── Outbreak list item ── */
+.outbreak-list-item {
+  padding: 14px 18px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.outbreak-list-item:hover { background: var(--glass2); }
+
+/* ── Myth item ── */
+.myth-item {
+  padding: 12px 16px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+.myth-item:hover { background: var(--glass2); }
+.fact-tag        { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 99px; white-space: nowrap; }
+
+/* ── Hospitals ── */
+.hospital-finder-card { background: var(--glass); border: 1px solid var(--border); border-radius: var(--r2); padding: 24px; }
+.hospital-finder-card .icon-wrap { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+
+/* ── Weather pill ── */
+.weather-pill { display: inline-block; padding: 8px 16px; border-radius: 99px; font-size: 13px; font-weight: 500; margin: 4px; }

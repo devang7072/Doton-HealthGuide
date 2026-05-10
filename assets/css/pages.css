@@ -1,0 +1,328 @@
+/* ─────────────────────────────────────────────────
+   doton — Page-Specific Styles
+   Dashboard · Chat · Disease · Quiz · Quick Actions
+───────────────────────────────────────────────── */
+
+/* ── Dashboard: Hero orb ── */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+.hero-orb-wrap {
+  position: relative;
+  width: 180px; height: 180px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 24px auto;
+}
+.hero-orb {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--indigo), var(--purple));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 60px rgba(79,70,229,.5);
+  animation: float 6s ease-in-out infinite;
+  cursor: pointer;
+  transition: transform .3s, box-shadow .3s;
+  z-index: 2;
+  position: relative;
+}
+.hero-orb:hover { transform: scale(1.08); box-shadow: 0 0 90px rgba(147,51,234,.6); }
+.hero-orb i     { font-size: 2.5rem; color: #fff; }
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.08);
+  animation: spin 12s linear infinite;
+}
+.ring1 { width: 160px; height: 160px; }
+.ring1::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: 50%;
+  width: 8px; height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #c084fc;
+}
+.ring2 { width: 210px; height: 210px; animation: spin 20s linear infinite reverse; border-style: dashed; }
+
+@keyframes float { 0%,100% { transform: translateY(0); }  50% { transform: translateY(-12px); } }
+@keyframes spin  { 100%    { transform: rotate(360deg); } }
+
+.hero-title {
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.hero-subtitle { font-size: 15px; color: var(--muted); max-width: 460px; }
+
+/* ── Dashboard: Quick Action cards ── */
+.qaction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 14px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  cursor: pointer;
+  transition: all .2s;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+}
+.qaction:hover       { background: var(--glass2); border-color: var(--border2); transform: translateY(-3px); }
+.qaction-icon        { width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.qaction span        { font-size: 13px; font-weight: 600; color: var(--muted); }
+.qaction:hover span  { color: var(--text); }
+
+/* ── Disease Bento Cards ── */
+.disease-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r2);
+  background: var(--glass);
+  border: 1px solid var(--border);
+  padding: 20px;
+  cursor: pointer;
+  transition: all .25s;
+}
+.disease-card:hover         { background: var(--glass2); border-color: var(--border2); transform: translateY(-3px); }
+.d-icon                     { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,.05); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 12px; }
+.disease-card h4            { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.disease-card p             { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.d-hover {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,15,30,.95);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity .25s;
+  z-index: 5;
+}
+.disease-card:hover .d-hover { opacity: 1; }
+.d-hover p { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+
+.yt-btn {
+  background: #ef4444;
+  color: #fff;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  transition: transform .2s;
+}
+.yt-btn:hover { transform: scale(1.15); }
+
+/* ── AI Chat ── */
+.chat-shell {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r3);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 220px);
+  min-height: 480px;
+  overflow: hidden;
+}
+.chat-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 14px;
+  flex-shrink: 0;
+}
+.chat-av {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--emerald), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.2);
+}
+.chat-av i { color: #fff; font-size: 16px; }
+
+.online { color: var(--emerald); font-size: 12px; display: flex; align-items: center; gap: 5px; }
+.dot    { width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); animation: blink 2s infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+
+.quick-chips {
+  display: flex; gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+.quick-chips::-webkit-scrollbar { display: none; }
+
+.chip {
+  white-space: nowrap;
+  font-size: 12px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  cursor: pointer;
+  color: var(--muted);
+  background: var(--glass);
+  transition: all .15s;
+}
+.chip:hover { border-color: var(--emerald); color: var(--emerald); background: rgba(16,185,129,.08); }
+
+#chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.msg { display: flex; gap: 10px; animation: msgIn .25s ease; }
+@keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.msg.user { flex-direction: row-reverse; }
+.msg-av2  { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; }
+.msg.bot  .msg-av2 { background: linear-gradient(135deg, var(--emerald), var(--cyan)); color: #fff; }
+.msg.user .msg-av2 { background: var(--navy3); color: var(--muted); border: 1px solid var(--border); }
+
+.bubble         { max-width: 72%; padding: 12px 16px; font-size: 14px; line-height: 1.65; }
+.msg.bot  .bubble { background: var(--navy3); border: 1px solid var(--border); border-radius: 4px 18px 18px 18px; color: var(--text); }
+.msg.user .bubble { background: linear-gradient(135deg, #059669, var(--emerald)); border-radius: 18px 4px 18px 18px; color: #fff; }
+.bubble ul       { margin: 6px 0 0 16px; }
+.bubble li       { margin-bottom: 3px; }
+.bubble strong   { color: var(--emerald); }
+.msg.user .bubble strong { color: #fff; }
+
+.typing-b         { display: flex; gap: 5px; align-items: center; padding: 14px 18px; }
+.typing-b span    { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: bounce .9s infinite; }
+.typing-b span:nth-child(2) { animation-delay: .15s; }
+.typing-b span:nth-child(3) { animation-delay: .3s; }
+@keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+
+.chat-input-row {
+  border-top: 1px solid var(--border);
+  padding: 14px 18px;
+  display: flex; gap: 10px; align-items: flex-end;
+  flex-shrink: 0;
+}
+#chat-ta {
+  flex: 1;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  min-height: 48px; max-height: 140px;
+  line-height: 1.5;
+  scrollbar-width: none;
+  transition: border .2s;
+}
+#chat-ta:focus       { border-color: var(--emerald); }
+#chat-ta::placeholder { color: var(--faint); }
+
+.send-btn {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, var(--emerald), #059669);
+  color: #fff;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: opacity .2s, transform .15s;
+}
+.send-btn:hover     { opacity: .9; transform: translateY(-1px); }
+.send-btn:disabled  { opacity: .3; cursor: not-allowed; transform: none; }
+
+.chat-disclaimer {
+  text-align: center;
+  font-size: 11px;
+  color: var(--faint);
+  padding: 8px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* ── Health Quiz ── */
+.quiz-opt {
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .2s;
+  margin-bottom: 8px;
+}
+.quiz-opt:hover         { background: var(--glass2); border-color: var(--border2); }
+.quiz-opt.correct       { background: rgba(16,185,129,.2); border-color: var(--emerald); color: #34d399; }
+.quiz-opt.wrong         { background: rgba(239,68,68,.2);  border-color: var(--rose);    color: #f87171; }
+
+.progress-track {
+  height: 6px;
+  background: rgba(255,255,255,.08);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--emerald), var(--cyan));
+  border-radius: 99px;
+  transition: width .4s ease;
+}
+
+/* ── Mobile bottom nav ── */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(5, 10, 24, .95);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+  padding: 8px 4px;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.mob-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all .2s;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.mob-item i           { font-size: 18px; }
+.mob-item.active,
+.mob-item:hover       { color: var(--indigo); }
