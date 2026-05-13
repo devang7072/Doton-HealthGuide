@@ -5,8 +5,8 @@
  */
 
 // ── State ───────────────────────────────────────────────────────
-let GEMINI_KEY   = '';
-let chatHistory  = [];   // [{role, parts:[{text}]}, …]
+let GEMINI_KEY = '';
+let chatHistory = [];   // [{role, parts:[{text}]}, …]
 
 // ── System prompt for MediChat ──────────────────────────────────
 const HEALTH_SYSTEM = `You are MediChat AI, a knowledgeable and empathetic health assistant for the doton app. Guidelines:
@@ -33,17 +33,17 @@ function connectGemini() {
   // Puter doesn't need a key, so we just simulate a connection or check status
   document.getElementById('status-dot').className = 'status-dot ok';
   document.getElementById('chat-send').disabled = false;
-  
+
   // Update the badge UI to show Puter is active
   const apiBadge = document.getElementById('api-status-badge');
-  if(apiBadge) {
+  if (apiBadge) {
     apiBadge.innerHTML = '<span class="status-dot ok"></span> <span style="font-size:12px; font-weight:600; color:var(--emerald)">Puter.js Active</span>';
   }
 }
 
 // ── Send a message ──────────────────────────────────────────────
 async function chatSend() {
-  const ta   = document.getElementById('chat-ta');
+  const ta = document.getElementById('chat-ta');
   const text = ta.value.trim();
   if (!text) return;
 
@@ -51,13 +51,13 @@ async function chatSend() {
   ta.style.height = '48px';
 
   addChatMsg('user', text);
-  
+
   // Prepare chat context
   const langName = getLanguageName();
-  const langInstruction = langName !== 'English' 
-    ? `\n\nCRITICAL INSTRUCTION: The user prefers ${langName}. You MUST respond entirely in ${langName} script/language.` 
+  const langInstruction = langName !== 'English'
+    ? `\n\nCRITICAL INSTRUCTION: The user prefers ${langName}. You MUST respond entirely in ${langName} script/language.`
     : '';
-    
+
   const fullPrompt = `${HEALTH_SYSTEM}${langInstruction}\n\nUser Question: ${text}`;
 
   const sendBtn = document.getElementById('chat-send');
@@ -67,12 +67,12 @@ async function chatSend() {
   try {
     // Using Gemini 3 Flash via Puter (as per their docs)
     const response = await puter.ai.chat(fullPrompt, {
-        model: 'gemini-3-flash-preview',
-        stream: true
+      model: 'gemini-3-flash-preview',
+      stream: true
     });
 
     removeTyping();
-    
+
     // Create an empty bot bubble for streaming
     const box = document.getElementById('chat-messages');
     const msgDiv = document.createElement('div'); msgDiv.className = 'msg bot';
@@ -97,7 +97,7 @@ async function chatSend() {
         box.scrollTop = box.scrollHeight;
       }
     }
-    
+
     chatHistory.push({ role: 'user', parts: [{ text }] });
     chatHistory.push({ role: 'model', parts: [{ text: fullText }] });
 
@@ -148,17 +148,17 @@ function fmtMD(t) {
  * @param {string}       text
  */
 function addChatMsg(role, text) {
-  const box   = document.getElementById('chat-messages');
+  const box = document.getElementById('chat-messages');
   const isBot = role === 'bot';
 
-  const d  = document.createElement('div');  d.className = 'msg ' + role;
-  const av = document.createElement('div');  av.className = 'msg-av2'; av.textContent = isBot ? 'M' : 'U';
+  const d = document.createElement('div'); d.className = 'msg ' + role;
+  const av = document.createElement('div'); av.className = 'msg-av2'; av.textContent = isBot ? 'M' : 'U';
 
   const inner = document.createElement('div');
-  const b     = document.createElement('div'); b.className = 'bubble'; b.innerHTML = fmtMD(text);
-  const t     = document.createElement('div');
+  const b = document.createElement('div'); b.className = 'bubble'; b.innerHTML = fmtMD(text);
+  const t = document.createElement('div');
   t.style.cssText = `font-size:10px;color:var(--faint);margin-top:4px${isBot ? '' : ';text-align:right'}`;
-  t.textContent   = now();
+  t.textContent = now();
 
   inner.appendChild(b);
   inner.appendChild(t);
@@ -171,10 +171,10 @@ function addChatMsg(role, text) {
 /** showTyping — renders the animated dots indicator */
 function showTyping() {
   const box = document.getElementById('chat-messages');
-  const d   = document.createElement('div'); d.className = 'msg bot'; d.id = 'typing-ind';
-  const av  = document.createElement('div'); av.className = 'msg-av2'; av.textContent = 'M';
-  const b   = document.createElement('div'); b.className = 'bubble';
-  b.style   = 'padding:0;background:var(--navy3);border:1px solid var(--border);border-radius:4px 18px 18px 18px';
+  const d = document.createElement('div'); d.className = 'msg bot'; d.id = 'typing-ind';
+  const av = document.createElement('div'); av.className = 'msg-av2'; av.textContent = 'M';
+  const b = document.createElement('div'); b.className = 'bubble';
+  b.style = 'padding:0;background:var(--navy3);border:1px solid var(--border);border-radius:4px 18px 18px 18px';
   b.innerHTML = '<div class="typing-b"><span></span><span></span><span></span></div>';
   d.appendChild(av);
   d.appendChild(b);
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ── Voice Input (Speech-to-Text) ────────────────────────────────
-window.startVoiceRecognition = function() {
+window.startVoiceRecognition = function () {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) {
     alert("Sorry, your browser doesn't support Voice Input. Try Chrome or Edge.");
@@ -211,7 +211,7 @@ window.startVoiceRecognition = function() {
   }
 
   const recognition = new SpeechRecognition();
-  
+
   // Set language based on active language
   const langName = getLanguageName();
   if (langName === 'Punjabi') recognition.lang = 'pa-IN';
@@ -224,13 +224,13 @@ window.startVoiceRecognition = function() {
   const micBtn = document.getElementById('chat-mic-btn');
   const originalColor = micBtn.style.color;
   const originalHTML = micBtn.innerHTML;
-  
+
   micBtn.style.color = 'var(--rose)';
   micBtn.innerHTML = '<i class="fas fa-microphone fa-beat"></i>';
 
   recognition.start();
 
-  recognition.onresult = function(event) {
+  recognition.onresult = function (event) {
     const speechResult = event.results[0][0].transcript;
     const ta = document.getElementById('chat-ta');
     ta.value = speechResult;
@@ -239,13 +239,13 @@ window.startVoiceRecognition = function() {
     ta.style.height = Math.min(ta.scrollHeight, 140) + 'px';
   };
 
-  recognition.onspeechend = function() {
+  recognition.onspeechend = function () {
     recognition.stop();
     micBtn.style.color = originalColor;
     micBtn.innerHTML = originalHTML;
   };
 
-  recognition.onerror = function(event) {
+  recognition.onerror = function (event) {
     console.error("Speech Recognition Error:", event.error);
     alert("Voice input failed: " + event.error);
     micBtn.style.color = originalColor;

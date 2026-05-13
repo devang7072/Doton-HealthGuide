@@ -84,7 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (tipEl && typeof puter !== 'undefined') {
     puter.ai.chat("Give me a one-sentence health tip for today. Keep it short, actionable, and encouraging.", {
       model: 'gemini-3-flash-preview'
-    }).then(tip => {
+    }).then(response => {
+      let tip = typeof response === 'string' ? response : (response?.text || response?.message?.content[0]?.text || String(response));
       tipEl.textContent = tip;
     }).catch(() => {
       tipEl.textContent = DAILY_TIPS[new Date().getDate() % DAILY_TIPS.length];
