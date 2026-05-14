@@ -243,3 +243,22 @@ window.generateSmartSummary = async function() {
 // Auto-run smart summary on load and every minute to keep it fresh
 setTimeout(generateSmartSummary, 2000); // 2 second delay to let weather/medicine load
 setInterval(generateSmartSummary, 60000);
+
+/**
+ * showToast — Global notification toast.
+ * @param {string} msg 
+ */
+function showToast(msg) {
+  const toast = document.getElementById('auth-toast');
+  if (toast) {
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    toast.style.pointerEvents = 'auto'; // Make it interactive if needed
+    setTimeout(() => { 
+      toast.style.opacity = '0'; 
+      toast.style.pointerEvents = 'none';
+    }, 3000);
+  } else {
+    alert(msg);
+  }
+}
