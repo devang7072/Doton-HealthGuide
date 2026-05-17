@@ -1,15 +1,71 @@
-# 🩺 doton — Digital Health Friend
+<div align="center">
 
-> AI-powered health guidance, outbreak tracking, medicine reminders, myth-busting & more — built for Punjab, India.
+# 🩺 Doton — Digital Health Friend
+**AI-powered health guidance, outbreak tracking, medicine reminders, myth-busting & more — built for Punjab, India.**
+
+[![Deploy Status](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify)](https://doton-health.netlify.app/)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Glossary/HTML5)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+[Live Demo 🚀](https://doton-health.netlify.app/) • [Presentation 📊](./DOTON_Premium_Light_Theme.pptx) • [Report Issues 🐛](../../issues)
+
+</div>
 
 ---
 
-## 📁 Project Structure
+## 🌟 About The Project
 
-```
-doton2/
+**Doton** is an innovative, digital health companion specifically tailored for users in Punjab, India. It leverages artificial intelligence to provide evidence-based health answers, real-time outbreak alerts, a comprehensive medicine tracker, and fact-checking features to combat medical misinformation.
+
+The platform is designed to be highly accessible, featuring a clean, responsive glassmorphism user interface built entirely with pure HTML, CSS, and vanilla JavaScript—making it lightweight and incredibly fast.
+
+### 🎥 Project Presentation
+To dive deeper into the design, strategy, and business implementation, please view our official project presentation:
+👉 **[DOTON Premium Light Theme Presentation](./DOTON_Premium_Light_Theme.pptx)**
+
+---
+
+## 🚀 Live Demo
+
+Experience **Doton** instantly without installing anything:
+🔗 **[Play with Doton on Netlify](https://doton-health.netlify.app/)** *(Replace with your actual deployed link if needed)*
+
+---
+
+## ✨ Key Features
+
+| Feature | Description |
+| :--- | :--- |
+| 🤖 **AI Health Chat** | *MediChat* powered by **Gemini 2.0 Flash** providing lightning-fast, evidence-based health Q&A. |
+| 📰 **Health News** | Live Punjab & India health news streams curated via Google News RSS. |
+| ⚠️ **Outbreak Alert** | Real-time broadcasting & tracking of district-level disease outbreaks. |
+| 💉 **Medicine Tracker** | Easy-to-use reminders for daily medicines, upcoming vaccines, & routine checkups. |
+| 💡 **Myth Buster** | Fact-checks over 30+ common health myths using live AI verification, plus a fun mini-quiz. |
+| 🎮 **Health Quiz** | A 10-question scored health awareness quiz to test your medical knowledge. |
+| 🌤️ **WeatherWise** | Pulls real-time weather data to provide personalized health precautions based on current conditions. |
+| 🏥 **Hospital Finder** | Integrated Google Maps to help you locate nearby hospitals, clinics, and pharmacies. |
+| 👨‍⚕️ **Doctors Directory** | A fully filterable directory to easily find verified specialists in your area. |
+| 🚨 **Emergency Guide** | Quick access to 112, essential Do's/Don'ts, First Aid reference, and national helplines. |
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+Doton is built to be fast, relying on a robust and modern foundation without the overhead of heavy frontend frameworks.
+
+*   **Frontend:** HTML5, Vanilla CSS3 (Custom Properties & Glassmorphism), Vanilla JavaScript (ES5+)
+*   **AI Engine:** Google Gemini API (`gemini-2.0-flash`) seamlessly handled via Puter.js
+*   **Data APIs:** OpenWeatherMap API (Weather), Google News RSS (via allorigins proxy)
+*   **Design Assets:** Font Awesome 6, Google Fonts (Outfit Typeface)
+
+### 📁 Folder Structure
+
+```text
+doton1.3/
 ├── index.html                  # Main SPA shell — all page sections live here
-│
+├── DOTON_Premium_Light_Theme.pptx  # Project Presentation Pitch Deck
+├── server/                     # Backend components (Node.js/Express)
 ├── assets/
 │   ├── css/
 │   │   ├── variables.css       # CSS custom properties (design tokens)
@@ -18,7 +74,6 @@ doton2/
 │   │   ├── components.css      # Reusable UI — cards, badges, buttons, forms
 │   │   ├── pages.css           # Feature-specific styles — hero, chat, quiz…
 │   │   └── responsive.css      # Media queries (tablet & mobile)
-│   │
 │   └── js/
 │       ├── app.js              # Page router, daily tip, app bootstrap
 │       ├── gemini.js           # Gemini API connection + MediChat UI
@@ -29,81 +84,74 @@ doton2/
 │       ├── quiz.js             # 10-question health awareness quiz
 │       ├── weather.js          # OpenWeatherMap + seasonal precautions
 │       └── doctors.js          # Doctors directory & live search
-│
 └── README.md
 ```
 
 ---
 
-## ✨ Features
+## 💻 Getting Started Locally
 
-| Feature | Description |
-|---|---|
-| 🤖 **AI Health Chat** | MediChat powered by Gemini 2.0 Flash — evidence-based health Q&A |
-| 📰 **Health News** | Live Punjab/India health news via Google News RSS |
-| ⚠️ **Outbreak Alert** | Broadcast & track district-level disease outbreaks |
-| 💉 **Medicine Tracker** | Add reminders for medicines, vaccines & checkups |
-| 💡 **Myth Buster** | Fact-check 30+ common health myths + mini quiz |
-| 🎮 **Health Quiz** | 10-question scored quiz with explanations |
-| 🌤️ **WeatherWise** | Real-time weather → personalised health precautions |
-| 🏥 **Hospital Finder** | Google Maps integration for nearby hospitals & pharmacies |
-| 👨‍⚕️ **Doctors Directory** | Filterable directory of verified specialists |
-| 🚨 **Emergency Guide** | 112 quick-dial, Do/Don't, First Aid reference, helplines |
+To ensure security and support the **Puter.js AI engine**, this project must be served through a local web server (opening the file directly via `file://` will cause errors).
 
----
+### Prerequisites
+*   [Node.js](https://nodejs.org/) installed on your machine.
 
-## 🚀 Getting Started
+### Installation & Setup
 
-To ensure security and support the **Puter.js AI engine**, this project must be served through a local web server (opening the file directly will cause errors).
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/devang7072/Doton-HealthGuide.git
+    cd Doton-HealthGuide
+    ```
 
-### 1. Run the Local Server
-A minimalist static server is included. Open your terminal in the project folder and run:
-```bash
-node server.cjs
-```
+2.  **Install any backend dependencies** *(If utilizing the `/server` folder)*:
+    ```bash
+    cd server
+    npm install
+    cd ..
+    ```
 
-### 2. View the App
-Once started, open your browser and visit:
-**[http://localhost:3005](http://localhost:3005)**
+3.  **Run the Local Server:**
+    A minimalist static server is included. Open your terminal in the root project folder and run:
+    ```bash
+    node server.cjs
+    ```
+    *(Alternatively, start the Express backend if configured in the `/server` folder)*.
 
-### ✨ Key Benefits
-- **Zero Configuration**: No API keys are required. Puter.js handles Gemini AI access automatically.
-- **Streaming AI**: MediChat now supports real-time streaming responses.
-- **AI-Powered Tools**: Myth Buster and Daily Tips are now backed by live AI verification.
+4.  **View the App:**
+    Once the server starts, open your browser and navigate to:
+    **[http://localhost:3005](http://localhost:3005)**
 
----
-
-## 🛠️ Tech Stack
-
-- **HTML5** — Semantic, accessible markup
-- **Vanilla CSS** — Glassmorphism design system with CSS custom properties
-- **Vanilla JavaScript** — Modular ES5-compatible scripts, no framework
-- **Google Gemini API** — AI health chat (`gemini-2.0-flash`)
-- **OpenWeatherMap API** — Real-time weather data
-- **Google News RSS** — Health headlines via allorigins proxy
-- **Font Awesome 6** — Icons
-- **Google Fonts** — Outfit typeface
+### 💎 Key Benefits of this Architecture
+- **Zero Configuration:** No complex API keys required for AI functionality! Puter.js dynamically handles Gemini AI access automatically.
+- **Streaming AI Response:** MediChat supports real-time streaming, rendering answers exactly like ChatGPT.
+- **AI-Powered Fact Checking:** Myth Buster and Daily Tips are now actively backed by live AI verification.
 
 ---
 
 ## 🎨 Design System
 
-All design tokens live in `assets/css/variables.css`:
+Doton uses a unified, aesthetically pleasing Glassmorphism design system. All design tokens are strictly maintained in `assets/css/variables.css`:
 
 ```css
---navy, --navy2, --navy3          /* Dark backgrounds */
---indigo, --purple, --emerald     /* Primary accents */
---cyan, --rose, --amber, --blue   /* Secondary accents */
---glass, --glass2                 /* Glassmorphism surfaces */
---border, --border2               /* Subtle borders */
---r, --r2, --r3                   /* Border radius scale */
+/* Color Palette Example */
+--navy, --navy2, --navy3          /* Rich Dark backgrounds */
+--indigo, --purple, --emerald     /* Vibrant Primary accents */
+--cyan, --rose, --amber, --blue   /* Engaging Secondary accents */
+--glass, --glass2                 /* Translucent Glassmorphism surfaces */
+--border, --border2               /* Soft subtle borders */
+--r, --r2, --r3                   /* Consistent Border radius scaling */
 ```
 
 ---
 
-## 📌 Notes
+## 📌 Important Notes
 
-- All data is **session-only** (medicine reminders, outbreak logs reset on refresh — no backend yet)
-- Weather is fetched for **Ludhiana, Punjab** by default
-- News requires an internet connection (proxied RSS feed)
-# Digital-Health-Friend
+- **Data Persistence:** Currently, user data (medicine reminders, outbreak logs) is **session-only** and will reset on page refresh. Full backend integration is in active development.
+- **Localization:** The Weather API currently defaults to fetching data for **Ludhiana, Punjab**.
+- **Connectivity:** The News Feed feature requires an active internet connection to proxy the RSS feed successfully.
+
+---
+<div align="center">
+  <i>Crafted with ❤️ for a healthier tomorrow.</i>
+</div>
