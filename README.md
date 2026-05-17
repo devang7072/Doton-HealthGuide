@@ -3,12 +3,12 @@
 # 🩺 Doton — Digital Health Friend
 **AI-powered health guidance, outbreak tracking, medicine reminders, myth-busting & more — built for Punjab, India.**
 
-[![Deploy Status](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify)](https://doton-health.netlify.app/)
+[![Deploy Status](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify)](https://doton.netlify.app/)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Glossary/HTML5)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-[Live Demo 🚀](https://doton-health.netlify.app/) • [Presentation 📊](./DOTON_Premium_Light_Theme.pptx) • [Report Issues 🐛](../../issues)
+[Live Demo 🚀](https://doton.netlify.app/) • [Presentation 📊](./DOTON_Premium_Light_Theme.pptx) • [Report Issues 🐛](../../issues)
 
 </div>
 
@@ -29,7 +29,7 @@ To dive deeper into the design, strategy, and business implementation, please vi
 ## 🚀 Live Demo
 
 Experience **Doton** instantly without installing anything:
-🔗 **[Play with Doton on Netlify](https://doton-health.netlify.app/)** *(Replace with your actual deployed link if needed)*
+🔗 **[Play with Doton on Netlify](https://doton.netlify.app/)**
 
 ---
 
